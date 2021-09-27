@@ -1,0 +1,5 @@
+Copyright and License
+
+The contents in this repository are Copyright Harald Jörg, <haj@posteo.de>, 2021.
+
+You may use it according to the [[https://creativecommons.org/licenses/by-sa/4.0/legalcode][Creative Commons Attribution-ShareAlike 4.0]] (CC BY SA 4.0)license.
