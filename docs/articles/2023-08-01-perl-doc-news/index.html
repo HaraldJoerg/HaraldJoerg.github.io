@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>What's new in perl-doc v0.8?</title>
+  </head>
+
+  <body>
+    <article>
+      <section style="max-width: 70em">
+	<header>
+	  <h1>What's new in perl-doc v0.8?</h1>
+	  <p><time itemprop="datePublished" datetime="2023-08-01">2023-08-01</time></p>
+	</header>
+	<section>
+	  <h2>Speedbar Display</h2>
+	  <section>
+	    <a href="img/files_view.jpg" style="float:right; margin: 1em">
+	      <img src="img/files_view.jpg" alt="Files view of speedbar, thumbnail"
+		   width="200">
+	    </a>
+	    <p>Speedbar is an Emacs feature "which can be used to
+	      summarize information related to the current buffer" (that's
+	      a quote from the Speedbar manual).  Here's how it looks for
+	      the Perl module which implements File::Temp (click for larger view):</p>
+	    <p>The narrow frame on the left shows the contents of the
+	      directory where that file is located, and can expand a a
+	      table of contents for the file (an imenu) if the major
+	      mode supports it.</p>
+	    <p>In perl-doc-mode, the directory isn't all that relevant:
+	      Modules starting with <code>File::</code> can be located
+	      in several different directories.  So, instead of
+	      directories, perl-doc-mode offers to show all modules in
+	      the <code>File::</code> namespace.  In my installation
+	      there are nine files in the directory
+	      <code>/usr/share/perl/5.34/File</code>, but as the next
+	      picture shows, I have 26 <code>File::</code> modules,
+	      plus a couple of subdirectories!</p>
+	  </section>
+	  <section style="clear:both">
+	    <a href="img/modules_expanded.jpg" style="float:right; margin: 1em">
+	      <img src="img/modules_expanded.jpg" alt="Files view of speedbar, thumbnail"
+		   width="200">
+	    </a>
+	    <p>The image shows the formatted view for the
+	      module <code>File::Temp</code> in perl-doc style.  Opening
+	      speedbar from a buffer in perl-doc mode automatically
+	      switches the display to perl-doc view.  The expanded
+	      display takes quite a lot of space, therefore the initial
+	      display only shows the module hierarchy for the module you
+	      are reading (and for other modules you've been reading in
+	      the same session).</p>
+	    <p>The view in this image is from Emacs 27.  As of Emacs
+	      28, each module also has a "+" sign in its icon.
+	      Clicking it expands the imenu index for the module
+	      documentation.  The gallery has an image
+	      of <a href="img/perldoc-view-emacs28.jpg">Emacs 28 on
+	      Windows</a>, showing the expanded table if contents
+	      for <code>File::Temp</code>.
+	    </p>
+	    <p>Hovering with the mouse over a module name shows the
+	      file path which will be used to display the
+	      documentation (and the code by using the "v" key in
+	      perl-doc mode).
+	    </p>
+	  </section>
+	</section>
+	<section>
+	  <h2>New or Improved Commands</h2>
+	  <dl>
+	    <dt><code>perl-doc-function</code></dt>
+	    <dd>Like <code>perl-doc</code>, but only provides
+	      documentation for functions from
+	      the <code>perlfunc</code> page.  This provides a
+	      convenient way for disambiguation between the pragma
+	      (module) open and the Perl function open.
+	    </dd>
+	    <dt><code>perl-doc-variable</code></dt>
+	    <dd>Displays a section from the <code>perlvar</code> page
+	      for the variable given.  Not very useful since the sigil
+	      of Perl variables is sufficient to tell them apart from
+	      modules, so a simple <code>perl-doc</code> should do the
+	      trick.
+	    </dd>
+	    <dt><code>perl-doc-browser</code></dt>
+	    <dd>Starts a speedbar in perl-doc view without needing a
+	      buffer in perl-doc mode.  perl-doc view will stay active
+	      until manually switched off from the speedbar context
+	      menu or until the
+	      command <code>perl-doc-browser-quit</code> is given.
+	    </dd>
+	    <dt><code>perl-doc-add-lib</code></dt>
+	    <dd>Add an existing directory to be searched for Perl
+	      modules, for this session only.  This is the equivalent
+	      of customizing <code>perl-doc-extra-libs</code> (see
+	      below) for the current session, but offers completion
+	      for the directory name.
+	    </dd>
+	    <dt><code>perl-doc-refresh-libs</code></dt>
+	    <dd>Clears the directory cache of the perl-doc browser.
+	      This is needed if you already visited a namespace in
+	      perl-doc view and then added a new directory.
+	    </dd>
+	    <dt><code>perl-doc</code></dt>
+	    <dd>This command now offers completion for module names
+	      according to your installation and a history.
+	    </dd>
+	  </dl>
+	</section>
+	<section>
+	  <h2>New customization options</h2>
+	  <dl>
+	    <dd><code>perl-doc-perl-program</code></dd>
+	    <dt>The path to the Perl executable.  This is used to find
+	      the built-in directories in <code>@INC</code>, needed for
+	      completion of module names.
+	    </dt>
+	    <dd><code>perl-doc-extra-libs</code></dd>
+	    <dt>A list of directories to be searched for Perl
+	      documentation in addition to those built-in and those in
+	      the environment variable PERL5LIB.
+	    </dt>
+	  </dl>
+	</section>
+	<section>
+	  <h2>Fixed Bugs</h2>
+	  <ul>
+	    <li>A page refresh no longer kills the imenu index in menubar.</li>
+	    <li>Refreshing doesn't happen as often as it did anyway.</li>
+	  </ul>
+	</section>
+      </section>
+    </article>
+    <hr>
+    <footer>
+      <h2>Copyright and License</h2>
+
+      <p>&copy; Harald Jörg, &lt;haj@posteo.de&gt; 2023.</p>
+
+      <p>You may use this article according to the
+	<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative
+	  Commons Attribution-ShareAlike 4.0</a> (CC BY SA 4.0) license.
+      </p>
+    </footer>
+  </body>
+</html>
