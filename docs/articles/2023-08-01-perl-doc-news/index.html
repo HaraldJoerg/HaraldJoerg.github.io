@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>What's new in perl-doc v0.8?</title>
+    <title>What's new in perl-doc</title>
   </head>
 
-  <body>
-    <article>
-      <section style="max-width: 70em">
+  <body style="max-width: 60em">
+    <main>
+      <article>
 	<header>
-	  <h1>What's new in perl-doc v0.8?</h1>
-	  <p><time itemprop="datePublished" datetime="2023-08-01">2023-08-01</time></p>
+	  <p><time>2023-08-01</time></p>
+	  <h1>What's new in perl-doc</h1>
+	  <table>
+	    <tr>
+	      <th>GNU ELPA</th>
+	      <td><a href="https://elpa.gnu.org/packages/perl-doc.html">https://elpa.gnu.org/packages/perl-doc.html</a></td>
+	    </tr>
+	    <tr>
+	      <th>Version</th>
+	      <td>0.81</td>
+	    </tr>
+	    <tr>
+	      <th>Repository</th>
+	      <td><a href="https://github.com/HaraldJoerg/emacs-perl-doc">https://github.com/HaraldJoerg/emacs-perl-doc</a></td>
+	    </tr>
+	    <tr>
+	      <th>Author</th>
+	      <td>Harald Jörg</td>
+	    </tr>
+	  </table>
 	</header>
 	<section>
 	  <h2>Speedbar Display</h2>
-	  <section>
-	    <a href="img/files_view.jpg" style="float:right; margin: 1em">
-	      <img src="img/files_view.jpg" alt="Files view of speedbar, thumbnail"
+	  <div>
+	    <a href="files.html" id="files-ref"
+	       style="float:right; margin: 1em">
+	      <img src="img/files_view.jpg"
+		   alt="Files view of speedbar, thumbnail"
 		   width="200">
 	    </a>
-	    <p>Speedbar is an Emacs feature "which can be used to
-	      summarize information related to the current buffer" (that's
-	      a quote from the Speedbar manual).  Here's how it looks for
-	      the Perl module which implements File::Temp (click for larger view):</p>
+	    <p><a href="https://www.gnu.org/software/emacs/manual/html_node/speedbar/">Speedbar</a>
+	      is an <a href="https://www.gnu.org/software/emacs/">Emacs</a>
+	      feature "which can be used to summarize
+	      information related to the current buffer" (that's a
+	      quote from the Speedbar manual).  On the right is how it
+	      looks for the Perl module which implements
+	      <a href="https://perldoc.perl.org/File::Temp">File::Temp</a>
+	      (click for larger view).</p>
 	    <p>The narrow frame on the left shows the contents of the
 	      directory where that file is located, and can expand a a
 	      table of contents for the file (an imenu) if the major
@@ -35,10 +59,12 @@
 	      <code>/usr/share/perl/5.34/File</code>, but as the next
 	      picture shows, I have 26 <code>File::</code> modules,
 	      plus a couple of subdirectories!</p>
-	  </section>
-	  <section style="clear:both">
-	    <a href="img/modules_expanded.jpg" style="float:right; margin: 1em">
-	      <img src="img/modules_expanded.jpg" alt="Files view of speedbar, thumbnail"
+	  </div>
+	  <div style="clear: both;">
+	    <a href="perl-doc-view.html" id="perl-doc-ref"
+	       style="float:right; margin: 1em">
+	      <img src="img/modules_expanded.jpg" a
+		   lt="Files view of speedbar, thumbnail"
 		   width="200">
 	    </a>
 	    <p>The image shows the formatted view for the
@@ -53,16 +79,16 @@
 	      28, each module also has a "+" sign in its icon.
 	      Clicking it expands the imenu index for the module
 	      documentation.  The gallery has an image
-	      of <a href="img/perldoc-view-emacs28.jpg">Emacs 28 on
-	      Windows</a>, showing the expanded table if contents
-	      for <code>File::Temp</code>.
+	      of <a href="perl-doc-imenu.html" id="emacs28-ref">Emacs
+	      28 on Windows</a>, showing the expanded table if
+	      contents for <code>File::Temp</code>.
 	    </p>
 	    <p>Hovering with the mouse over a module name shows the
 	      file path which will be used to display the
 	      documentation (and the code by using the "v" key in
 	      perl-doc mode).
 	    </p>
-	  </section>
+	  </div>
 	</section>
 	<section>
 	  <h2>New or Improved Commands</h2>
@@ -86,7 +112,8 @@
 	      buffer in perl-doc mode.  perl-doc view will stay active
 	      until manually switched off from the speedbar context
 	      menu or until the
-	      command <code>perl-doc-browser-quit</code> is given.
+	      command <code>perl-doc-browser-quit</code> (bound to "q"
+	      in the speedbar frame) is given.
 	    </dd>
 	    <dt><code>perl-doc-add-lib</code></dt>
 	    <dd>Add an existing directory to be searched for Perl
@@ -109,16 +136,16 @@
 	<section>
 	  <h2>New customization options</h2>
 	  <dl>
-	    <dd><code>perl-doc-perl-program</code></dd>
-	    <dt>The path to the Perl executable.  This is used to find
+	    <dt><code>perl-doc-perl-program</code></dt>
+	    <dd>The path to the Perl executable.  This is used to find
 	      the built-in directories in <code>@INC</code>, needed for
 	      completion of module names.
-	    </dt>
-	    <dd><code>perl-doc-extra-libs</code></dd>
-	    <dt>A list of directories to be searched for Perl
+	    </dd>
+	    <dt><code>perl-doc-extra-libs</code></dt>
+	    <dd>A list of directories to be searched for Perl
 	      documentation in addition to those built-in and those in
 	      the environment variable PERL5LIB.
-	    </dt>
+	    </dd>
 	  </dl>
 	</section>
 	<section>
@@ -128,14 +155,24 @@
 	    <li>Refreshing doesn't happen as often as it did anyway.</li>
 	  </ul>
 	</section>
-      </section>
-    </article>
+	<section>
+	  <h2>Limitations and Todos</h2>
+	  <ul>
+	    <li>The error handling is poor.  If perl-doc does not find
+	      a POD, then it does not distinguish between a file which
+	      has no POD or ... a file which doesn't exist.  The
+	      latter can happen if you follow a link to a module which
+	      you have not installed.  perl-doc <em>might</em> offer
+	      to look on CPAN in that case.</li>
+	    <li>A completion of module names might also come handy
+	      in cperl-mode.</li>
+	</section>
+      </article>
+    </main>
     <hr>
     <footer>
       <h2>Copyright and License</h2>
-
       <p>&copy; Harald Jörg, &lt;haj@posteo.de&gt; 2023.</p>
-
       <p>You may use this article according to the
 	<a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">Creative
 	  Commons Attribution-ShareAlike 4.0</a> (CC BY SA 4.0) license.
