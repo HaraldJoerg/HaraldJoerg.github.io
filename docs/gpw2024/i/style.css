@@ -1,0 +1,196 @@
+* {
+    box-sizing: content-box;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body, html {
+    height: 100%;
+    background-color: #19194b;
+    font-size: 5vh;
+    overflow: hidden;
+}
+
+#timer {
+    height: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url("timer.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.container {
+    height: 92%;
+    position: relative;
+    margin: 0 auto;
+    color: #ddf;
+    background-image: url("bg.jpg");
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: cover;
+}
+
+.slide {
+    display: none;
+    height: 100%;
+    width: auto;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 0;
+}
+
+.centered {
+    text-align: center;
+}
+.inline {
+    display: inline-block;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease; 
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+h1.title {
+    text-align: center;
+    margin: auto;
+    padding-top: 2em;
+    width: 60%;
+    font-size: 60pt;
+}
+
+h1.subtitle {
+    text-align: center;
+    margin: auto;
+    padding-top: 1em;
+    width: 60%;
+    font-size: 48pt;
+}
+
+h2,h3 {
+    text-align: center;
+    margin: 0;
+    padding-top: 0.5em;
+    padding-botton: 0.5em;
+}
+h2 {
+    font-size: 10vh;
+}
+
+h3 {
+    font-size: 6vh;
+}
+
+div {
+    width: 100%;
+}
+img {
+}
+
+.full_size {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    width: 1280px;
+}
+
+ul, ol {
+    margin-left: 1em;
+}
+li {
+    margin-top: 0.4em;
+}
+.fixme {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    padding: 1em;
+    border: 3pt solid black;
+    background-color: #400;
+}
+#x3dom {
+    width: 50vh;
+    height: 50vh;
+    background-color: #dde;
+    float: left;
+    margin-right: 2em;
+}
+tt {
+    font-family: serif;
+}
+
+#footer {
+    font-size: 3vh;
+    color: #777;
+}

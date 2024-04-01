@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>spheres.p3d</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .p3d-modifiers {
+        /* p3d-modifiers */
+        color: #a0522d;
+        background-color: #ffc0cb;
+        font-weight: bold;
+      }
+      .p3d-shapes {
+        /* p3d-shapes */
+        color: #0000ff;
+        background-color: #ffff00;
+        font-weight: bold;
+      }
+      .p3d-transformations {
+        /* p3d-transformations */
+        color: #0000ff;
+        background-color: #add8e6;
+        font-weight: bold;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="p3d-shapes">light_source</span>([0,5,10],<span class="p3d-modifiers">color</span>(1,1,1));
+<span class="p3d-shapes">background</span>(0.8,0.8,1.0);
+<span class="p3d-shapes">camera</span>(<span class="string">position</span> =&gt; [0.5,0.5,3], <span class="string">look_at</span> =&gt; [0.5,0.5,0.5]);
+<span class="keyword">my</span> <span class="variable-name">$n</span> = 5;
+<span class="keyword">for</span> <span class="keyword">my</span> <span class="variable-name">$x</span> (0..$n) {
+    <span class="keyword">for</span> <span class="keyword">my</span> <span class="variable-name">$y</span> (0..$n) {
+        <span class="keyword">for</span> <span class="keyword">my</span> <span class="variable-name">$z</span> (0..$n) {
+            <span class="p3d-shapes">sphere</span>(1/(3*$n))
+                -&gt;<span class="p3d-modifiers">color</span>($x/$n,$y/$n,$z/$n)
+                -&gt;<span class="p3d-transformations">translate</span>($x/$n,$y/$n,$z/$n);
+        }
+    }
+}
+</pre>
+  </body>
+</html>

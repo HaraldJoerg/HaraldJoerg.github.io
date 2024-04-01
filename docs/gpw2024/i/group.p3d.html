@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>group.p3d</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .p3d-modifiers {
+        /* p3d-modifiers */
+        color: #a0522d;
+        background-color: #ffc0cb;
+        font-weight: bold;
+      }
+      .p3d-shapes {
+        /* p3d-shapes */
+        color: #0000ff;
+        background-color: #ffff00;
+        font-weight: bold;
+      }
+      .p3d-transformations {
+        /* p3d-transformations */
+        color: #0000ff;
+        background-color: #add8e6;
+        font-weight: bold;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="p3d-shapes">group</span> {
+    <span class="p3d-shapes">sphere</span>-&gt;<span class="p3d-transformations">translate</span>(-1,0,0)-&gt;<span class="p3d-modifiers">color</span>(1,0,0);
+    <span class="p3d-shapes">sphere</span>-&gt;<span class="p3d-transformations">translate</span>(1,0,0)-&gt;<span class="p3d-modifiers">color</span>(0,1,0);
+}-&gt;<span class="p3d-transformations">translate</span>(0,1,0);
+<span class="p3d-shapes">group</span> {
+    <span class="p3d-shapes">sphere</span>-&gt;<span class="p3d-transformations">translate</span>(-1,0,0);
+    <span class="p3d-shapes">sphere</span>-&gt;<span class="p3d-transformations">translate</span>(1,0,0);
+}-&gt;<span class="p3d-transformations">translate</span>(0,-1,0)-&gt;<span class="p3d-modifiers">color</span>(0,0,1);
+<span class="p3d-shapes">light_source</span>([0,5,10],<span class="p3d-modifiers">color</span>(1,1,1));
+</pre>
+  </body>
+</html>

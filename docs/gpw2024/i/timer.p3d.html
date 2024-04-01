@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>timer.p3d</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .p3d-shapes {
+        /* p3d-shapes */
+        color: #0000ff;
+        background-color: #ffff00;
+        font-weight: bold;
+      }
+      .p3d-transformations {
+        /* p3d-transformations */
+        color: #0000ff;
+        background-color: #add8e6;
+        font-weight: bold;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+$O3D::Renderer::GD::FPS=1/24;
+<span class="p3d-shapes">background</span>(0,0,0.8);
+<span class="keyword">my</span> $<span class="p3d-shapes">box</span> = <span class="p3d-shapes">box</span>(2,4,0.1)-&gt;<span class="p3d-transformations">translate</span>(-200,0,0);
+<span class="p3d-transformations">animate</span> {
+    $<span class="p3d-shapes">box</span>-&gt;<span class="p3d-transformations">translate</span>(4,0,0);
+}
+</pre>
+  </body>
+</html>

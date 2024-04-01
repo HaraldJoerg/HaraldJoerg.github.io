@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="i/style.css">
+    <script src="i/s.js" type="text/javascript"></script>
+    <title>Manipulating 3D Objects with Perl</title>
+  </head>
+  <body>
+    <div id="timer"> </div>
+    <div class="container">
+      <div class="slide">
+	<h1 class="title">Manipulating 3D Objects with Perl</h1>
+	<h1 class="subtitle">April 2024</h1>
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/00.jpg">
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/04.jpg">
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/02.jpg">
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/07.png">
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/02.jpg">
+      </div>
+      <div class="slide">
+	<h2>Workflow</h2>
+	<ol>
+	  <li>Edit the POV-Ray scene</li>
+	  <li>Render...
+	    <ul>
+	      <li>Fix errors in the scene file</li>
+	      <li>Rinse and repeat...</li>
+	    </ul>
+	  </li>
+	  <li>Improve the design</li>
+	  <li>Rinse and repeat...</li>
+	</ol>
+	<div class="fixme">
+	  <em>This sucks.  I want a GUI.  In Perl.</em>
+	</div>
+      </div>
+      <div class="slide">
+	<h2>Which GUI Toolkit?</h2>
+	<ul>
+	  <li>
+	    In the past, I had used Tk, Gtk, Qt, and Wx
+	  </li>
+	  <li>
+	    Some are a pain (or impossible) to build or don't work on
+	    Windows
+	  </li>
+	  <li>
+	    Good ol' Tk <em>just works</em>
+	  </li>
+	  <li>
+	    Big thanks to Slaven Rezić for keeping Tk alive!
+	  </li>
+	</ul>
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/01.jpg">
+      </div>
+      <div class="slide centered">
+	<img class="full_size" src="i/06.jpg">
+      </div>
+      <div class="slide">
+	<h2>Can we do ... faster?</h2>
+	<p>Tk is ... a bit slow for thousands of polygons.</p>
+	<p>Time to learn something new.</p>
+      </div>
+      <div class="slide">
+	<h2>OpenGL</h2>
+	<p>"The Industry's Foundation for High Performance Graphics"</p>
+	<p>
+	  I learned it from an online version of "The Official Guide
+	  to Learning OpenGL, Version 1.1" (1998)
+	</p>
+	<p>
+	  I could easily translate the examples from C to Perl's
+	  OpenGL module (which says it supports version 1.2)  👍
+	</p>
+	<p>...but the guide is no longer online 😢</p>
+      </div>
+      <div class="slide">
+	<h2>OpenGL</h2>
+	<p>
+	  ...is about to be superseded by Vulkan
+	</p>
+	<p>
+	  "Vulkan is a cross-platform industry standard enabling developers to
+	  target a wide range of devices with the same graphics API."
+	</p>
+	<p>...for which there are no Perl bindings (yet)</p>
+	<p>So let's stick with what we have</p>
+      </div>
+      <div class="slide">
+	<h2>Prima</h2>
+	<p>
+	  ...is a GUI toolkit which can be built and works on Linux
+	  and Windows (and Mac/OSX)
+	</p>
+	<p>
+	  ...Dmitry Karasik is an active maintainer (e.g. 5 releases in
+	  2023) 👍
+	</p>
+	<p>...and it allows use of OpenGL in a widget 👍</p>
+      </div>
+      <div class="slide">
+	<h2>A Viewer</h2>
+	<div>
+	  <img src="i/color_cube.png"
+	       style="float: left; height: 60vh; padding-right: 2em;">
+	  <p>
+	    In the early days of the web, with 256-color images,
+	    Netscape used a universal palette.  This rendering of the
+	    "Netscape color cube" has more than 100000 polygons.
+	  </p>
+	  <p>
+	    On my PC at home this renders in 5 milliseconds.
+	  </p>
+	</div>
+      </div>
+      <div class="slide">
+	<h2>Persisting a Scene</h2>
+	<div class="fixme">
+	  Unimplemented.
+	</div>
+      </div>
+      <div class="slide">
+	<h2>3D file formats</h2>
+	  <p>...don't look too attractive.</p>
+	<ul>
+	  <li>Wavefront OBJ and other binary formats: I
+	  want <em>text!</em></li>
+	  <li>POV-Ray Scene Description Language: too powerful!<br>I
+	  can't write a parser for POV-Ray SDL</li>
+	  <li>
+	    Extensible 3D (X3D): XML isn't actually meant for humans
+	    to write nor read<br>
+	    X3DOM is a candidate for import/export
+	  </li>
+	</ul>
+      </div>
+      <div class="slide">
+	<h2>Or...</h2>
+	<ul>
+	  <li>Serialize and store the Perl scene object: Storable and
+	  friends to the rescue!</li>
+	</ul>
+	<div class="fixme">
+	  <p>Or maybe not?</p>
+	</div>
+      </div>
+      <div class="slide">
+	<h2>Modern Times</h2>
+	<ul>
+	  <li>
+	    The code uses Object::Pad and Feature::Compat::Class (Perl
+	    5.38 classes)
+	  </li>
+	  <li>
+	    One can not <tt>bless</tt> arbitrary data structures into
+	    these modules' classes <br>&rarr; makes loading a scene
+	    difficult
+	  </li>
+	</ul>
+	<p>But also...</p>
+	<ul>
+	  <li>
+	    The constructor can not create objects in arbitrary
+	    positions and orientations
+	  </li>
+	</ul>
+      </div>
+      <div class="slide">
+	<h2>Box Construction in 3D</h2>
+	<figure class="inline">
+	  <img src="i/POV-Ray_box.gif">
+	  <figcaption>POV-Ray</figcaption>
+	</figure>
+	<figure class="inline">
+	  <img src="i/X3D_box.gif" style="background-color: #fff">
+	  <figcaption>X3D</figcaption>
+	</figure>
+      </div>
+      <div class="slide">
+	<h2>Use the Power of Perl</h2>
+	<p>
+	  Up to now, I write scenes with an editor
+	  and use the programs only as viewers.
+	</p>
+	<p>
+	  The next slides show some examples.
+	</p>
+      </div>
+      <div class="slide">
+	<div>
+	  <img src="i/box.jpg" style="float: right; padding-top: 1em">
+	  <h3>All values have defaults</h3>
+	  <div>
+	    <iframe src="i/box.p3d.html" width="600" height="100">
+	    </iframe>
+	  </div>
+	</div>
+	<div style="clear: both";>
+	  <img src="i/2001.jpg" style="float: right; padding-top: 1em">
+	  <h3>Appearance and Transformations<br>are Methods</h3>
+	  <div>
+	    <iframe src="i/box2.p3d.html" width="600" height="200">
+	    </iframe>
+	  </div>
+	</div>
+      </div>
+      <div class="slide">
+	<div>
+	  <img src="i/group.jpg" style="float: right; padding-top: 1em">
+	  <h3>Curlies for Grouping</h3>
+	  <iframe src="i/group.p3d.html" width="900" height="400"></iframe>
+	</div>
+      </div>
+      <div class="slide">
+	<img src="i/animation.gif" style="float: right; padding-top: 1em">
+	<h3>...and for Animation!</h3>
+	<iframe src="i/animation.p3d.html" width="900" height="400">
+	</iframe>
+      </div>
+      <div class="slide centered">
+	<h2>Color Cube</h2>
+	<iframe src="i/spheres.p3d.html" width="1200" height="600"></iframe>
+      </div>
+      <div class="slide centered">
+	<h2>A Timer</h2> 
+	<iframe src="i/timer.p3d.html" width="1200" height="300"></iframe>
+	<div>
+	  <img src="i/timer.gif">
+	</div>
+      </div>
+      <div class="slide">
+	<h2>What's Next?</h2>
+	<iframe src="i/x3dom.html" id="x3dom">
+	</iframe>
+	<ul>
+	  <li>Clean up the mess</li>
+	  <li>Make the API consistent</li>
+	  <li>
+	    X3DOM output<br>
+	    Perl PPC 19 (template strings) will be very useful
+	  </li>
+	  <li>More shapes</li>
+	  <li>More options for appearance</li>
+	</ul>
+      </div>
+<!-- =============================== -->
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <div id="footer">
+      Harald Jörg, April 2024
+    </div>
+  </body>
+</html>
