@@ -1,13 +1,13 @@
 $O3D::Demo::LEVEL_OF_DETAIL = 8;
-background(0.1,0.1,0.3);
+background(0.03,0.03,0.1);
 light_source([0,5,10],color(1,1,1));
 camera(position => [0,0,3], look_at => [0,0,0]);
 
-sphere(1)->color(0.1,0.1,0.0);
+sphere(1)->rgb(0.03,0.03,0.0);
 
-for my $l (0..20) {
+for my $l (0..40) {
     sphere(0.1)
-	->color(0.2,0.0,0.0)
+	->rgb(0.1,0.0,0.0)
 	->translate(1.1,0,0)
 	->rotate(0,-9*$l,0)
 	->rotate(10,0,0);

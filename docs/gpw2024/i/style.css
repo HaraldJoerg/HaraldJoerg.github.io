@@ -6,7 +6,7 @@
 
 body, html {
     height: 100%;
-    background-color: #19194b;
+    background-color: #080819;
     font-size: 5vh;
     overflow: hidden;
 }
@@ -142,7 +142,7 @@ h2,h3 {
     text-align: center;
     margin: 0;
     padding-top: 0.5em;
-    padding-botton: 0.5em;
+    padding-botton: 1.0em;
 }
 h2 {
     font-size: 10vh;
@@ -193,4 +193,11 @@ tt {
 #footer {
     font-size: 3vh;
     color: #777;
+}
+
+#back-matter {
+    margin-top: 2em;
+}
+#back-matter a {
+    color: #dd2;
 }

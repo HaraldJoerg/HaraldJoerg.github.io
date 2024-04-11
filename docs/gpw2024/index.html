@@ -41,18 +41,33 @@
 	  <li>Rinse and repeat...</li>
 	</ol>
 	<div class="fixme">
-	  <em>This sucks.  I want a GUI.  In Perl.</em>
+	  <em>This sucks.  I want a GUI.</em>
 	</div>
       </div>
       <div class="slide">
-	<h2>Which GUI Toolkit?</h2>
+	<h2>Candidates</h2>
+	<ul>
+	  <li>Moray: a POV-Ray modeler, apparently withered away</li>
+	  <li>Blender: Great, but exports meshes for everything</li>
+	  <li>
+	    OpenSCAD: Good for constructing, but no match for
+ 	    POV-Ray rendering quality
+	  </li>
+	</ul>
+	<div class="fixme">
+	  Can I do it in Perl?
+	</div>
+      </div>
+      <div class="slide">
+	<h2>Perl GUI Toolkits</h2>
 	<ul>
 	  <li>
 	    In the past, I had used Tk, Gtk, Qt, and Wx
 	  </li>
 	  <li>
 	    Some are a pain (or impossible) to build or don't work on
-	    Windows
+	    Windows<br>
+	    ...so it's not as TIMTOWTDI as one would think
 	  </li>
 	  <li>
 	    Good ol' Tk <em>just works</em>
@@ -127,7 +142,7 @@
       </div>
       <div class="slide">
 	<h2>Persisting a Scene</h2>
-	<div class="fixme">
+	<div class="fixme" style="margin-top: 2em">
 	  Unimplemented.
 	</div>
       </div>
@@ -191,8 +206,8 @@
       <div class="slide">
 	<h2>Use the Power of Perl</h2>
 	<p>
-	  Up to now, I write scenes with an editor
-	  and use the programs only as viewers.
+	  As of today, I write scenes with an editor and use the
+	  programs only as viewers.
 	</p>
 	<p>
 	  The next slides show some examples.
@@ -218,14 +233,14 @@
       </div>
       <div class="slide">
 	<div>
+	  <h2>Curlies for Grouping</h2>
 	  <img src="i/group.jpg" style="float: right; padding-top: 1em">
-	  <h3>Curlies for Grouping</h3>
 	  <iframe src="i/group.p3d.html" width="900" height="400"></iframe>
 	</div>
       </div>
       <div class="slide">
+	<h2>...and for Animation!</h2>
 	<img src="i/animation.gif" style="float: right; padding-top: 1em">
-	<h3>...and for Animation!</h3>
 	<iframe src="i/animation.p3d.html" width="900" height="400">
 	</iframe>
       </div>
@@ -254,6 +269,13 @@
 	  <li>More shapes</li>
 	  <li>More options for appearance</li>
 	</ul>
+      </div>
+      <div class="slide centered">
+	<div id="back-matter">
+	  <a href="https://haraldjoerg.github.io/gpw2024/">
+	    https://haraldjoerg.github.io/gpw2024/
+	  </a>
+	</div>
       </div>
 <!-- =============================== -->
       <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
