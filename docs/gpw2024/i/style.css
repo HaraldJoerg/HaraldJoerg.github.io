@@ -179,12 +179,16 @@ li {
     border: 3pt solid black;
     background-color: #400;
 }
-#x3dom {
+.x3dom {
     width: 50vh;
     height: 50vh;
     background-color: #dde;
     float: left;
     margin-right: 2em;
+}
+.x3dom2 {
+    width: 90vh;
+    height: 60vh;
 }
 tt {
     font-family: serif;

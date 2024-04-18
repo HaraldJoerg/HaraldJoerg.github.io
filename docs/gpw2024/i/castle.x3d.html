@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Old Castle</title>
+  <script type='text/javascript' src='https://www.x3dom.org/download/x3dom.js'></script>
+  <link rel='stylesheet' type='text/css' href='https://www.x3dom.org/download/x3dom.css'>
+</head>
+<body>
+  <x3d width='800px' height='600px'>
+    <scene>
+      <!-- Ground -->
+      <shape>
+        <appearance>
+          <material diffuseColor='0.4 0.4 0.4'></material>
+        </appearance>
+        <box size='50 1 50'></box>
+      </shape>
+      
+      <!-- Castle Walls -->
+      <transform translation='0 10 0'>
+        <shape>
+          <appearance>
+            <material diffuseColor='0.7 0.6 0.5'></material>
+          </appearance>
+          <box size='40 20 1'></box>
+        </shape>
+        <transform translation='0 0 -20'>
+          <shape>
+            <appearance>
+              <material diffuseColor='0.7 0.6 0.5'></material>
+            </appearance>
+            <box size='40 20 1'></box>
+          </shape>
+        </transform>
+        <transform translation='-20 0 0'>
+          <shape>
+            <appearance>
+              <material diffuseColor='0.7 0.6 0.5'></material>
+            </appearance>
+            <box size='1 20 50'></box>
+          </shape>
+          <transform translation='40 0 0'>
+            <shape>
+              <appearance>
+                <material diffuseColor='0.7 0.6 0.5'></material>
+              </appearance>
+              <box size='1 20 50'></box>
+            </shape>
+          </transform>
+        </transform>
+      </transform>
+      
+      <!-- Towers -->
+      <transform translation='-20 0 -20'>
+        <transform translation='0 20 0'>
+          <shape>
+            <appearance>
+              <material diffuseColor='0.7 0.6 0.5'></material>
+            </appearance>
+            <cylinder height='30' radius='5'></cylinder>
+          </shape>
+        </transform>
+        <transform translation='0 40 0'>
+          <shape>
+            <appearance>
+              <material diffuseColor='0.7 0.6 0.5'></material>
+            </appearance>
+            <cone bottomRadius='5' height='10'></cone>
+          </shape>
+        </transform>
+      </transform>
+      
+      <!-- Doors -->
+      <transform translation='0 5 -20'>
+        <shape>
+          <appearance>
+            <material diffuseColor='0.3 0.2 0.1'></material>
+          </appearance>
+          <box size='10 10 1'></box>
+        </shape>
+      </transform>
+      
+      <!-- Windows -->
+      <transform translation='-10 15 -20'>
+        <shape>
+          <appearance>
+            <material diffuseColor='0 0 1'></material>
+          </appearance>
+          <cylinder height='5' radius='2'></cylinder>
+        </shape>
+      </transform>
+      <transform translation='10 15 -20'>
+        <shape>
+          <appearance>
+            <material diffuseColor='0 0 1'></material>
+          </appearance>
+          <cylinder height='5' radius='2'></cylinder>
+        </shape>
+      </transform>
+    </scene>
+  </x3d>
+</body>
+</html>
