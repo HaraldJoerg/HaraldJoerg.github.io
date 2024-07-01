@@ -9,29 +9,9 @@
         color: #000000;
         background-color: #ffffff;
       }
-      .cperl-nonoverridable {
-        /* cperl-nonoverridable-face */
-        color: #66cd00;
-      }
-      .function-name {
-        /* font-lock-function-name-face */
-        color: #0000ff;
-      }
       .hl-line {
         /* hl-line */
         background-color: #b4eeb4;
-      }
-      .keyword {
-        /* font-lock-keyword-face */
-        color: #a020f0;
-      }
-      .string {
-        /* font-lock-string-face */
-        color: #8b2252;
-      }
-      .variable-name {
-        /* font-lock-variable-name-face */
-        color: #a0522d;
       }
 
       a {
@@ -48,9 +28,9 @@
   </head>
   <body>
     <pre>
-<span class="keyword">use</span> <span class="function-name">utf8</span>;
-<span class="keyword">my</span> <span class="variable-name">$y&#8407;</span> = [0,1,0];
-<span class="cperl-nonoverridable">print</span> <span class="string">"@$y&#8407;\n"</span>;
+use utf8;
+my $y&#8407; = [0,1,0];
+print "@$y&#8407;\n";
 </pre>
   </body>
 </html>
