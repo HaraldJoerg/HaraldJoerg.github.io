@@ -1,0 +1,51 @@
+body {
+    color: #000000;
+    background-color: #ffffff;
+}
+.comment {
+    /* font-lock-comment-face */
+    color: #b22222;
+}
+.comment-delimiter {
+    /* font-lock-comment-delimiter-face */
+    color: #b22222;
+}
+.constant {
+    /* font-lock-constant-face */
+    color: #008b8b;
+}
+.cperl-array {
+    /* cperl-array-face */
+    color: #0000ff;
+    background-color: #eeeed1;
+    font-weight: bold;
+}
+.cperl-method-call {
+    /* cperl-method-call */
+    color: #000000;
+    background-color: #ffffff;
+}
+.cperl-nonoverridable {
+    /* cperl-nonoverridable-face */
+    color: #66cd00;
+}
+.function-name {
+    /* font-lock-function-name-face */
+    color: #0000ff;
+}
+.keyword {
+    /* font-lock-keyword-face */
+    color: #a020f0;
+}
+.string {
+    /* font-lock-string-face */
+    color: #8b2252;
+}
+.variable-name {
+    /* font-lock-variable-name-face */
+    color: #a0522d;
+}
+
+a:hover {
+    text-decoration: underline;
+}

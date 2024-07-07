@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Debugging Corinna Objects</title>
+    <link rel="stylesheet" href="i/style.css">
+  </head>
+  <body>
+    <h1>Debugging Corinna Objects</h1>
+    <p>
+      Perl 5.38 brought a new syntax for object oriented programming
+      in Perl with
+      the <a href="https://github.com/Perl-Apollo/Corinna">Corinna</a>
+      project as a new
+      <a href="https://perldoc.perl.org/perlclass">
+	<tt>feature 'class'</tt>
+      </a>.  One of its characteristic features is <em>encapsulation:</em>
+      Unlike objects implemented
+      as <a href="https://perldoc.perl.org/functions/bless">blessed</a>
+      hash or array references, there is no "low level" way to access
+      the fields of a Corinna object.  This turns out to be an
+      obstacle for diagnostic software which use these low level
+      access to show an object's internals.
+      <a href="https://perldoc.perl.org/Data::Dumper">Data::Dumper</a>
+      and the <a href="https://perldoc.perl.org/perldebug">Perl
+	debugger</a> are bundled with Perl, but ... not very useful
+      for Corinna objects.
+    </p>
+
+    <p>
+      I am not considering Data::Dumper here: It has the extra
+      challenge that its output format is valid Perl code.  I do not
+      need my debugging information to be presented as valid Perl
+      code.
+    </p>
+
+    <h2>Code Example</h2>
+    <p>
+      The following example (<a href="i/debug.pl">download</a>)
+      defines a 3D "box", following the (simplified) construction of a
+      box in
+      <a href="https://www.web3d.org/x3d/what-x3d">Extensible 3D
+      (X3D)</a>.  The <tt>size</tt> parameter is a reference to an
+      array giving the extensions of the box in x, y and z direction.
+      The Perl object also holds a list of the vertices of the box,
+      and a list of lists which defines which of the vertices define
+      the faces of the box.
+    </p>
+     <div>
+    <pre style="width: 50em; padding: 3px; border: thin solid black">
+<span class="keyword">use</span> 5.038;
+<span class="keyword">use</span> <span class="function-name">feature</span> <span class="string">'class'</span>;
+<span class="keyword">no</span> <span class="function-name">warnings</span> <span class="string">'experimental'</span>;
+
+
+<span class="keyword">class</span> <span class="function-name">Object</span> {
+    <span class="keyword">field</span> <span class="cperl-array">@vertices</span>;
+    <span class="keyword">field</span> <span class="cperl-array">@faces</span>;
+
+    <span class="keyword">ADJUST</span> {
+        <span class="cperl-array">@faces</span>    = $self-&gt;<span class="cperl-method-call">init_faces</span>;
+        <span class="cperl-array">@vertices</span> = $self-&gt;<span class="cperl-method-call">init_vertices</span>;
+    };
+}
+
+
+<span class="keyword">class</span> <span class="function-name">Box</span> <span class="constant">:isa</span>(<span class="function-name">Object</span>) {
+    <span class="cperl-nonoverridable">no</span> <span class="function-name">warnings</span> <span class="string">'experimental'</span>;
+
+    <span class="keyword">field</span> <span class="variable-name">$size</span> <span class="constant">:param</span> = [2,2,2];
+
+    <span class="keyword">method</span> <span class="function-name">init_vertices</span> {
+        <span class="keyword">my</span> (<span class="variable-name">$x</span>,<span class="variable-name">$y</span>,<span class="variable-name">$z</span>) = <span class="cperl-nonoverridable">map</span> { $_ / 2 } <span class="cperl-array">@</span><span class="variable-name">$size</span>;
+        <span class="keyword">return</span> ([-$x,-$y,-$z],  <span class="comment-delimiter"># </span><span class="comment">0
+</span>                [ $x,-$y,-$z],  <span class="comment-delimiter"># </span><span class="comment">1
+</span>                [-$x, $y,-$z],  <span class="comment-delimiter"># </span><span class="comment">2
+</span>                [ $x, $y,-$z],  <span class="comment-delimiter"># </span><span class="comment">3
+</span>                [-$x,-$y, $z],  <span class="comment-delimiter"># </span><span class="comment">4
+</span>                [ $x,-$y, $z],  <span class="comment-delimiter"># </span><span class="comment">5
+</span>                [-$x, $y, $z],  <span class="comment-delimiter"># </span><span class="comment">6
+</span>                [ $x, $y, $z]); <span class="comment-delimiter"># </span><span class="comment">7
+</span>    }
+
+    <span class="keyword">my</span> <span class="cperl-array">@init_faces</span> = ([0,2,3,1],[0,1,5,4],[0,4,6,2],
+                      [1,3,7,5],[2,6,7,3],[4,5,7,6]);
+    <span class="keyword">method</span> <span class="function-name">init_faces</span> {
+        <span class="keyword">return</span> <span class="cperl-array">@init_faces</span>;
+    }
+}
+
+
+<span class="keyword">my</span> <span class="variable-name">$box</span>   = Box-&gt;<span class="cperl-method-call">new</span>(<span class="string">size</span> =&gt; [4,9,1]);
+$DB::single = $DB::single = 1;
+<span class="cperl-nonoverridable">say</span> <span class="string">'At the debugger prompt, say "x $box &lt;RETURN&gt;"'</span>;
+</pre>
+    </div>
+
+    <p>
+      After creation of the box, the program does nothing but prepare
+      a break point for the debugger.  At this point I want to inspect
+      the box, for example to check the coordinates of the vertices.
+      For this demonstration, run it like this with Perl 5.38 or
+      newer:
+      <blockquote>
+	<code>PERLDB_OPTS="NonStop" perl -d debug.pl</code>
+      </blockquote>
+      Then, at the debugger prompt, enter:
+      <blockquote>
+	<code>x $box</code>
+      </blockquote>
+      The output looks like this:
+      <blockquote>
+	<pre>  DB&lt;1&gt; x $box
+0  Box=OBJECT(0x60119185fcf8)
+  DB&lt;2&gt;
+	</pre>
+      </blockquote>
+    </p>
+    <p>
+      This is not helpful.  For comparison, if I implement the same
+      class in <a href="https://metacpan.org/pod/Moose">Moose</a> (<a
+      href="i/debug_moose.pl">download</a>) and run the same demo, the
+    output looks like this:
+      <blockquote>
+	<pre>  DB&lt;1&gt; x $box
+0  Box=HASH(0x5d5621440540)
+   'faces' => ARRAY(0x5d56228d1c38)
+      0  ARRAY(0x5d56211a7630)
+         0  0
+         1  2
+         2  3
+         3  1
+      1  ARRAY(0x5d56211aeff8)
+      [... several elements skipped for brevity)
+      5  ARRAY(0x5d56211af3d0)
+         0  4
+         1  5
+         2  7
+         3  6
+   'vertices' => ARRAY(0x5d56228c9b98)
+      0  ARRAY(0x5d56211af688)
+         0  '-2'
+         1  '-4.5'
+         2  '-0.5'
+      1  ARRAY(0x5d56228be0b8)
+      [... several elements skipped for brevity)
+      7  ARRAY(0x5d56228ca660)
+         0  2
+         1  4.5
+         2  0.5
+  DB&lt;2&gt;
+	</pre>
+      </blockquote>
+    </p>
+
+    <p>
+      This is the information I want with Corinna objects, too.  I am
+      aware that it isn't as easy as "dumping a hash reference"
+      because in Corinna a parent class (like <code>Object</code> in
+      the example) and a child class (<code>Box</code> in the example)
+      can use the same field names without collision.  So Corinna
+      objects need a different output format.  But this is not
+      Data::Dumper, there are no conditions our output format must
+      meet.
+    </p>
+
+    <h3>How it could look like</h3>
+    <p>
+      I can
+      use <a href="https://metacpan.org/pod/Object::Pad">Object::Pad</a>
+      to demonstrate what I would like to see.  Simply replace the
+      second line of the example program by this (<a href="i/debug_opad.pl">download</a>):
+      <blockquote>
+	<code>
+	  use Object::Pad;
+	</code>
+      </blockquote>
+    </p>
+    <p>
+      Running the same procedure as above gives the following output:
+      <blockquote>
+	<pre>
+  DB<1> x $box
+0  O3D::Box=ARRAY(0x5847c28066c0)
+   0  ARRAY(0x5847c2806bd0)
+      0  ARRAY(0x5847c2447808)
+         0  '-2'
+         1  '-4.5'
+         2  '-0.5'
+      1  ARRAY(0x5847c2806258)
+      [... several elements skipped for brevity)
+      7  ARRAY(0x5847c2630480)
+         0  2
+         1  4.5
+         2  0.5
+   1  ARRAY(0x5847c2806738)
+      0  ARRAY(0x5847c24356c0)
+         0  0
+         1  2
+         2  3
+         3  1
+      1  ARRAY(0x5847c2447760)
+      [... several elements skipped for brevity)
+      5  ARRAY(0x5847c243d5c8)
+         0  4
+         1  5
+         2  7
+         3  6
+   2  ARRAY(0x5847c243d658)
+      0  4
+      1  9
+      2  1
+  DB<2>
+	</pre>
+      </blockquote>
+    </p>
+    <p>
+      This is halfway helpful: The names of the fields are not
+      provided, and we also know that this output is just an artifact
+      of how Object::Pad is implemented.
+    </p>
+    <p>
+      But this <em>can</em> be improved: Object::Pad provides
+      a <a href="https://metacpan.org/pod/Object::Pad::MOP::Class">meta
+      object protocol (MOP)</a> which allows to access the names of
+      the field.  All that needs to be done is to use the MOP in
+      the debugger.
+    </p>
+    <p>
+      And this is what I have done.
+      The <a href="https://github.com/HaraldJoerg/Object-Pad-Debugger">Object::Pad
+      debugger</a> is a drop-in replacement for the Perl debugger
+      which uses the MOP to look into objects.  Applied to the demo code:
+      <blockquote>
+	<code>
+	  PERLDB_OPTS="NonStop" perl -d:opaddb i/debug_opad.pl
+	</code>
+      </blockquote>
+      I get the following output:
+      <blockquote>
+	<pre>
+  DB<1> x $box
+0  O3D::Box=ARRAY(0x63afe81ebc58)
+    -> Object::Pad object with 1 field(s):
+      field $size = ARRAY(0x63afe81e1718)
+      0  4
+      1  9
+      2  1
+    -> extends O3D::Object    -> Object::Pad object with 2 field(s):
+      field @vertices = ARRAY(0x63afe8491260)
+      0  ARRAY(0x63afe8491818)
+         0  '-2'
+         1  '-4.5'
+         2  '-0.5'
+      1  ARRAY(0x63afe81fb598)
+      [... several elements skipped for brevity)
+      7  ARRAY(0x63afe8832b38)
+         0  2
+         1  4.5
+         2  0.5
+      field @faces = ARRAY(0x63afe8490b28)
+      0  ARRAY(0x63afe81d9920)
+         0  0
+         1  2
+         2  3
+         3  1
+      1  ARRAY(0x63afe81e17d8)
+      [... several elements skipped for brevity)
+      5  ARRAY(0x63afe81e1688)
+         0  4
+         1  5
+         2  7
+         3  6
+  DB<2> 	</pre>
+      </blockquote>
+      I want something like this for Corinna objects and I am willing
+      to make the necessary changes to the Perl debugger if I have a
+      chance to get at the data.
+    </p>
+    <p>
+      The <a href="https://github.com/HaraldJoerg/Object-Pad-Debugger/blob/70fe656b40cece3f0177b07486e3838b52144ad5/lib/Devel/opaddb.pm#L138">code</a>
+      to present Object::Pad objects
+      uses <code>Object::Pad::MOP::Class</code> and its
+      method <code>fields</code>, <code>roles</code>
+      and <code>superclasses</code>, and for the fields the
+      method <code>value</code>.
+    </p>
+
+    <p>
+      I have not created an interface to <em>change</em> the values of
+      fields.  The debugger itself does not have an interface to
+      change data.  You <em>can</em> change data by entering Perl
+      statements.  This is good enough to manipulate the contents of
+      Moose objects, but as we know, fields of Object::Pad or Corinna
+      objects can not be changed outside their class (unless there's a
+      method to do so).
+    </p>
+
+    <h2>See Also</h2>
+    <dl>
+      <dt id="stackoverflow">A question on Stackoverflow:</dt>
+      <dd><a href="https://stackoverflow.com/questions/78543145/how-do-you-dump-an-object-instance-with-perls-new-class-feature">How
+	  do you dump an object instance with Perl's new class
+	  feature?</a></dd>
+    </dl>
+  </body>
+</html>

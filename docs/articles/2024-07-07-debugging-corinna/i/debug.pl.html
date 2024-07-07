@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>debug.pl.txt</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .cperl-array {
+        /* cperl-array-face */
+        color: #0000ff;
+        background-color: #eeeed1;
+        font-weight: bold;
+      }
+      .cperl-method-call {
+        /* cperl-method-call */
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .cperl-nonoverridable {
+        /* cperl-nonoverridable-face */
+        color: #66cd00;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="keyword">use</span> 5.032;
+<span class="keyword">use</span> <span class="function-name">Feature::Compat::Class</span>;
+
+
+<span class="keyword">class</span> <span class="function-name">O3D::Object</span> {
+    <span class="keyword">field</span> <span class="cperl-array">@vertices</span>;
+    <span class="keyword">field</span> <span class="cperl-array">@faces</span>;
+
+    <span class="keyword">ADJUST</span> {
+        <span class="cperl-array">@faces</span>    = $self-&gt;<span class="cperl-method-call">init_faces</span>;
+        <span class="cperl-array">@vertices</span> = $self-&gt;<span class="cperl-method-call">init_vertices</span>;
+    };
+}
+
+
+<span class="keyword">class</span> <span class="function-name">O3D::Box</span> <span class="constant">:isa</span>(<span class="function-name">O3D::Object</span>) {
+    <span class="cperl-nonoverridable">no</span> <span class="function-name">warnings</span> <span class="string">'experimental'</span>;
+
+    <span class="keyword">field</span> <span class="variable-name">$size</span> <span class="constant">:param</span> = [2,2,2];
+
+    <span class="keyword">method</span> <span class="function-name">init_vertices</span> {
+        <span class="keyword">my</span> (<span class="variable-name">$x</span>,<span class="variable-name">$y</span>,<span class="variable-name">$z</span>) = <span class="cperl-nonoverridable">map</span> { $_ / 2 } <span class="cperl-array">@</span><span class="variable-name">$size</span>;
+        <span class="keyword">return</span> ([-$x,-$y,-$z],  <span class="comment-delimiter"># </span><span class="comment">0
+</span>                [ $x,-$y,-$z],  <span class="comment-delimiter"># </span><span class="comment">1
+</span>                [-$x, $y,-$z],  <span class="comment-delimiter"># </span><span class="comment">2
+</span>                [ $x, $y,-$z],  <span class="comment-delimiter"># </span><span class="comment">3
+</span>                [-$x,-$y, $z],  <span class="comment-delimiter"># </span><span class="comment">4
+</span>                [ $x,-$y, $z],  <span class="comment-delimiter"># </span><span class="comment">5
+</span>                [-$x, $y, $z],  <span class="comment-delimiter"># </span><span class="comment">6
+</span>                [ $x, $y, $z]); <span class="comment-delimiter"># </span><span class="comment">7
+</span>    }
+
+    <span class="keyword">my</span> <span class="cperl-array">@init_faces</span> = ([0,2,3,1],[0,1,5,4],[0,4,6,2],
+                      [1,3,7,5],[2,6,7,3],[4,5,7,6]);
+    <span class="keyword">method</span> <span class="function-name">init_faces</span> {
+        <span class="keyword">return</span> <span class="cperl-array">@init_faces</span>;
+    }
+}
+
+
+<span class="keyword">my</span> <span class="variable-name">$box</span>   = O3D::Box-&gt;<span class="cperl-method-call">new</span>(<span class="string">size</span> =&gt; [4,9,1]);
+$DB::single = $DB::single = 1;
+<span class="cperl-nonoverridable">say</span> <span class="string">'At the debugger prompt, say "x $box &lt;RETURN&gt;"'</span>;
+</pre>
+  </body>
+</html>
