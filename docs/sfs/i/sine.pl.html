@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>sine.pl</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 28pt;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .comment {
+        /* font-lock-comment-face */
+	color: #b22222;
+      }
+      .highlight {
+	  background-color: #ffff80;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="keyword">use</span> <span class="function-name highlight">Audio::Aoede</span>;
+<span class="keyword">use</span> <span class="function-name">PDL</span>;
+
+<span class="keyword">my</span> <span class="variable-name">$A</span> = Audio::Aoede-&gt;new();
+<span class="keyword">my</span> <span class="variable-name">$t</span> = <span class="highlight">sequence($A-&gt;rate)</span> / $A-&gt;rate * 2 * <span class="type">atan2</span>(0,-1);
+
+<span class="keyword">my</span> <span class="variable-name">$p</span> = <span class="type">sin</span>(440 * $t); <span class="comment"># This is where the fun happens</span>
+
+$A-&gt;<span class="highlight">play($p)</span>;
+</pre>
+  </body>
+</html>

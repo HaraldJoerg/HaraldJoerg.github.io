@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>square.pl</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 20pt;
+      }
+      .cperl-method-call {
+        /* cperl-method-call */
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .highlight {
+	  background-color: #ffff80;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="keyword">use</span> <span class="function-name">Audio::Aoede</span>;
+<span class="keyword">use</span> <span class="function-name">PDL</span>;
+<span class="keyword">use</span> <span class="function-name">PDL::Graphics::Prima::Simple</span>;
+
+<span class="keyword">my</span> <span class="variable-name">$A</span> = Audio::Aoede-&gt;<span class="cperl-method-call">new</span>();
+
+<span class="keyword">my</span> <span class="variable-name">$p</span> = $A-&gt;<span class="highlight">square_wave</span>-&gt;($A-&gt;<span class="cperl-method-call">rate</span>,440);
+
+$A-&gt;<span class="cperl-method-call">play</span>($p);
+<span class="keyword">my</span> <span class="variable-name">$samples_per_period</span> = $A-&gt;<span class="cperl-method-call">rate</span> / 440;
+line_plot($p-&gt;<span class="cperl-method-call">slice</span>([0,2*$samples_per_period]));
+line_plot($A-&gt;<span class="cperl-method-call">spectrum</span>($p,4000));
+</pre>
+  </body>
+</html>

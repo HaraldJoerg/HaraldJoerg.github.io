@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>play_note.pl</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="keyword">use</span> <span class="function-name">Audio::Aoede</span>;
+
+<span class="keyword">my</span> <span class="variable-name">$A</span> = Audio::Aoede-&gt;new(<span class="string">out</span> =&gt; <span class="string">'notes.ogg'</span>);
+
+$A-&gt;play_notes(<span class="string">'A4'</span>           =&gt; 1/4,
+               <span class="string">'C#5'</span>          =&gt; 1/4,
+               <span class="string">'E5'</span>           =&gt; 1/4,
+               <span class="string">'A4+C#5+E5+A5'</span> =&gt; 1);
+</pre>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>play.pl</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 28pt;
+
+      }
+      .cperl-array {
+        /* cperl-array-face */
+        color: #0000ff;
+        background-color: #eeeed1;
+        font-weight: bold;
+      }
+      .cperl-nonoverridable {
+        /* cperl-nonoverridable-face */
+        color: #66cd00;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .highlight {
+	  background-color: #ffff80;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="keyword">method</span> <span class="function-name">play</span> (<span class="variable-name">$data</span>) {
+    <span class="keyword">my</span> <span class="variable-name">$samples</span> = <span class="highlight">short($data * (2**15-1))</span>;
+    <span class="type">open</span> (<span class="keyword">my</span> <span class="variable-name">$h</span>, <span class="string">'|-'</span>, $sox, <span class="cperl-array">@sox_params</span>, $out);
+    <span class="type">binmode</span> $h;
+    <span class="cperl-nonoverridable">print</span> $h $samples-&gt;<span class="highlight">get_dataref</span>-&gt;$*;
+    <span class="type">close</span> $h;
+}
+</pre>
+  </body>
+</html>
