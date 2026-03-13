@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>record.pl</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .cperl-method-call {
+        /* cperl-method-call */
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter"># </span><span class="comment">"by value"
+</span><span class="keyword">use</span> <span class="function-name">FFI::Platypus::Record</span>;
+<span class="keyword">package</span> <span class="function-name">Vec3D</span>;
+record_layout_1($ffi,
+                <span class="string">double</span> =&gt; <span class="string">'x'</span>, <span class="string">double</span> =&gt; <span class="string">'y'</span>, <span class="string">double</span> =&gt; <span class="string">'z'</span>);
+$ffi-&gt;<span class="cperl-method-call">type</span>(<span class="string">'record(Vec3D)'</span> =&gt; <span class="string">'vec3d'</span>);
+</pre>
+  </body>
+</html>

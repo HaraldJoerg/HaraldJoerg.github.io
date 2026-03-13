@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>Pipewire.xs</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .hl-line {
+        /* hl-line */
+        background-color: #b4eeb4;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .preprocessor {
+        /* font-lock-preprocessor-face */
+        color: #483d8b;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="preprocessor">#define</span> <span class="variable-name">PERL_NO_GET_CONTEXT</span>
+<span class="preprocessor">#include</span> <span class="string">"EXTERN.h"</span>
+<span class="preprocessor">#include</span> <span class="string">"perl.h"</span>
+<span class="preprocessor">#include</span> <span class="string">"XSUB.h"</span>
+
+<span class="preprocessor">#include</span> <span class="string">"ppport.h"</span>
+
+<span class="preprocessor">#include</span> <span class="string">&lt;pipewire-0.3/pipewire/pipewire.h&gt;</span>
+
+<span class="preprocessor">#include</span> <span class="string">"const-c.inc"</span>
+
+MODULE = Pipewire               PACKAGE = Pipewire
+
+INCLUDE: <span class="keyword">const</span>-xs.inc
+</pre>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>Buffer.pm</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .cperl-method-call {
+        /* cperl-method-call */
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter"># </span><span class="comment">ABSTRACT: A class derived from /usr/include/pipewire-0.3/pipewire/stream.h
+</span><span class="keyword">package</span> <span class="function-name">PipeWire::Pw::Buffer</span>;
+<span class="keyword">use</span> <span class="function-name">feature</span> <span class="string">'class'</span>;
+
+<span class="keyword">class</span> <span class="function-name">PipeWire::Pw::Buffer</span> <span class="constant">:isa</span>(<span class="function-name">PipeWire::Struct</span>);
+
+<span class="keyword">field</span> <span class="variable-name">$buffer</span>    <span class="constant">:param</span> <span class="constant">:reader</span>; <span class="comment-delimiter"># </span><span class="comment">struct spa_buffer*
+</span><span class="keyword">field</span> <span class="variable-name">$requested</span> <span class="constant">:param</span> <span class="constant">:reader</span>; <span class="comment-delimiter"># </span><span class="comment">uint64_t
+</span><span class="keyword">field</span> <span class="variable-name">$size</span>      <span class="constant">:param</span> <span class="constant">:reader</span>; <span class="comment-delimiter"># </span><span class="comment">uint64_t
+</span><span class="keyword">field</span> <span class="variable-name">$time</span>      <span class="constant">:param</span> <span class="constant">:reader</span>; <span class="comment-delimiter"># </span><span class="comment">uint64_t
+</span><span class="keyword">field</span> <span class="variable-name">$user_data</span> <span class="constant">:param</span> <span class="constant">:reader</span>; <span class="comment-delimiter"># </span><span class="comment">void*
+</span>
+<span class="keyword">ADJUST</span> {
+    <span class="keyword">require</span> <span class="function-name">PipeWire::Spa::Buffer</span>;
+    $buffer = PipeWire::Spa::Buffer-&gt;<span class="cperl-method-call">perlify</span>($buffer);
+}
+1;
+</pre>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+* In SEG Valley
+
+** Two problems to solve:
+
+*** Activate the "record" button in spectre only when a microphone is plugged in
+
+*** Play/Record sound without shelling out to an external program
+
+My first player backend, SoX, causes delays due to buffering.  A
+Linux-only solution is Audio::PortAudio, but ... it was last updated
+in 2007 and spits out warnings ("portaudio could not be initialized"
+at termination).  Yet, it works.
+
+** Good News: PipeWire is a new kid on the block
+
+Present in current Linux distributions... so:
+
+** Bad News: PipeWire is Linux only
+
+** Good News: PipeWire comes with CLI tools
+
+...so it can easily be a drop-in replacement for the SoX backend.
+
+** Bad News: There's no PipeWire library for Perl
+
+...and I have not written C code for decades nor ever written XS code
+
+** Good News: I do not have to write XS code
+
+There's FFI::Platypus
+
+** Bad News: I still need to write C code
+
+ + functions which are actually preprocessor definitions
+ + static inline functions
+
+** Good News: This is dead eays with FFI::Platypus
+
+ + just drop it into a directory 'ffi' at your project root
+ + ExtUtils::MakeMaker recipe is included
+
+** Bad News: Declaring lots of FFI::C structs is no fun
+
+This looks like rewriting all header files in FFI::Platypus syntax
+
+** Bad News: FFI::Platypus does not support stuff
+
+ + Arrays of structs
+ + Pointers to structs as parameters of callback routines
+
+** Good News: There's also Convert::Binary::C (CBC)
+
+ + This parses C headers and sources
+
+** Bad News: Does not understand "current" C syntax
+
+...and CBC is in "bugfix only" state
+
+** Good News: The CBC maintainer fixed it (on GitHub)
+
+Now I have a 356-line CBC configuration
+...small adjustments are still necessary.
+
+** Bad News: CBC fails to parse most PipeWire headers
+
+ + PipeWire makes heavy use of GCC extensions, this is out of scope
+   for CBC
+ + So ... we pick the headers by hand
+
+** Good News: CBC can be used to generate Perl code
+
+** Reached Milestone: Run a PipeWire example in Perl
+
+** Bad News: SEGV with threaded Perl
+
+ + Possibly a Perl limitation
+ + Linux Distributions ship threaded Perl
+
+** Good News: If I need to build my own Perl, I can use v5.43.5
+
+ + Use to test cperl-mode support for named parameters
+

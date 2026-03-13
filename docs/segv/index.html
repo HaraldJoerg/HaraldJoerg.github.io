@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="i/style.css">
+    <script src="i/s.js" type="text/javascript"></script>
+    <title>Talking to PipeWire</title>
+  </head>
+  <body>
+    <div id="timer"> </div>
+    <div class="container">
+      <div class="slide">
+	<h1 class="title">Talking to PipeWire</h1>
+	<h1 class="subtitle">March 2026</h1>
+      </div>
+
+      <div class="slide">
+	<h2>Why PipeWire?</h2>
+	<p>Some challenges from last year's topic:</p>
+	<ul>
+	  <li>
+	    Can I prevent PulseAudio and Jack from stepping on each other's toes?
+	  </li>
+	  <li>
+	    Can I detect whether / when a microphone is plugged in?
+	  </li>
+	  <li>
+	    Can I record / play sound without using an external
+	    program?
+	  </li>
+	  <p>
+	    <a href="https://pipewire.org">PipeWire</a> seemed to be a
+	    solution.  Unfortunately, there's nothing on CPAN.
+	  </p>
+      </div>
+
+      <div class="slide">
+	<h2>About PipeWire</h2>
+	<p>Wikipedia says:</p>
+	<blockquote><small>
+	  PipeWire is a low-level server and multimedia framework for
+	  handling audio and video streams on Linux.  Created by Wim
+	  Taymans at Red Hat, it aims to unify audio and video
+	  processing by providing low-latency capture and playback
+	  functionality.  PipeWire facilitates advanced multimedia
+	  routing and pipeline processing, and is designed to replace
+	  and be compatible with existing sound systems.
+	</small></blockquote>
+	<p>PipeWire is available on current Linux versions</p>
+      </div>
+      <div class="slide">
+	<h2>PipeWire comes with...</h2>
+	<ul>
+	  <li>
+	    <a href="https://docs.pipewire.org/">Online documentation</a>,
+	    containing
+	    <ul>
+	      <li>
+		A long list of
+		<a href="https://docs.pipewire.org/page_programs.html">CLI programs</a>
+		<br/>
+		<small>
+		  ...which could already replace
+		  <a href="https://sourceforge.net/projects/sox/">SoX</a>
+		  or <a href="https://linux.die.net/man/1/aplay">aplay</a>
+		</small>
+	      </li>
+	      <li>
+		An <a href="https://docs.pipewire.org/page_tutorial.html">API tutorial</a>
+		with C programs
+		<br>
+		<small>
+		  ...which turned out to be very helpful
+		</small>
+	      </li>
+	      <li>
+		A list of
+		<a href="https://docs.pipewire.org/examples.html">Examples</a>
+		<br>
+		<small>
+		  Not well documented, but hey, you get what you pay for
+		</small>
+	      </li>
+	    </ul>
+	  </li>
+      </div>
+      <div class="slide">
+	<h2>The Procedure</h2>
+	<ol>
+	  <li>
+	    Run the examples from the
+	    <a href="https://docs.pipewire.org/page_tutorial.html">API tutorial</a>
+	    <br>
+	    <small>Easy.</small>
+	  </li>
+	  <li>
+	    Run the examples from Perl, using
+	    <a href="https://metacpan.org/pod/Inline::C">Inline::C</a>
+	    <br>
+	    <small>Also easy, but not too informative.</small>
+	  </li>
+	  <li>
+	    Try <a href="h2xs">h2xs</a> on the PipeWire header
+	    <br>
+	    <small>Well, not really.  I shall revisit that at some time.</small>
+	  </li>
+	  <li>
+	    Go for
+	    <a href="https://metacpan.org/pod/FFI::Platypus">FFI::Platypus</a>
+	  </li>
+	</ol>
+      </div>
+
+      <div class="slide">
+	<h2>The h2xs Experience</h2>
+	<tt>$ h2xs /usr/include/pipewire-0.3/pipewire/pipewire.h</tt>
+	<div class="centered">
+	  <iframe src="s/PipeWire.xs.html" width="1200" height="600"></iframe>
+	</div>
+      </div>
+      <div class="slide">
+	<p>
+	  I had no idea what the next step would be to "translate"
+	  the C programs from the tutorial to Perl.
+	</p>
+	<p>I could have read a XS tutorial, but...</p>
+	<p>
+	  Dave Mitchell had announced that he would rewrite the XS
+	  documentation, so I decided to postpone XS.  He also
+	  recently said he intends to rewrite the XS tutorial.
+	  <div class="fixme">
+	      The new perlxs documentation is already
+	      <a href="https://perldoc.perl.org/5.43.6/perlxs">available</a>.
+	  </div>
+	</p>
+      </div>
+
+      <div class="slide">
+	<h2>Go for FFI::Platypus</h2>
+	<p>
+	  <a href="https://metacpan.org/pod/FFI::Platypus">FFI::Platypus</a>
+	  suggests that you can build interfaces to C without writing XS.
+	</p>
+	<p>
+	  FFI = Foreign Function Interface:
+	  <a href="https://sourceware.org/libffi/">libffi</a>
+	</p>
+	<blockquote>
+	  From the DESCRIPTION: Platypus is a library for creating
+	  interfaces to machine code libraries written in languages
+	  like C, C++, Go, Fortran, Rust, Pascal.
+	</blockquote>
+      </div>
+
+      <div class="slide centered">
+	<h3>Tutorial 2: Enumerating Objects</h3>
+	<p>First subroutine: Create a main loop</p>
+	<iframe src="i/loop.c.html" width="1500" height="150"></iframe>
+	<iframe src="i/loop.h.html" width="1500" height="150"></iframe>
+	<iframe src="i/loop.pl.html" width="1500" height="200"></iframe>
+      </div>
+
+      <div class="slide centered">
+	<h3>Tutorial 2: Enumerating Objects II</h3>
+	<p>Create a context</p>
+	<iframe src="i/context.c.html" width="1500" height="150"></iframe>
+	<iframe src="i/context.h.html" width="1500" height="200"></iframe>
+	<iframe src="i/context.pl.html" width="1500" height="250"></iframe>
+      </div>
+
+      <div class="slide centered">
+	<h3>Tutorial 2: Enumerating Objects III</h3>
+	<p>Connect to the core</p>
+	<iframe src="i/core.c.html" width="1500" height="120"></iframe>
+	<iframe src="i/core.h.html" width="1500" height="200"></iframe>
+	<iframe src="i/core.pl.html" width="1500" height="250"></iframe>
+      </div>
+
+      <div class="slide centered">
+	<h3>Tutorial 2: Enumerating Objects IV</h3>
+	<p>Get the registry</p>
+	<iframe src="i/registry.c.html" width="1500" height="120"></iframe>
+	<iframe src="i/registry.h.html" width="1500" height="200"></iframe>
+	<iframe src="i/registry.pl.html" width="1500" height="250"></iframe>
+      </div>
+
+      <div class="slide">
+	<h2>WTF?</h2>
+	<tt>$ perl tutorial2.pl</tt>
+	<div class="fixme">
+	  pw_core_get_registry: not found
+	</div>
+      </div>
+
+      <div class="slide">
+	<h2>WTF?</h2>
+	<tt>$ perl tutorial2.pl</tt>
+	<div class="fixme">
+	  pw_core_get_registry: not found
+	</div>
+	<p>Ah.  I missed something.</p>
+	<div class="centered">
+	  <iframe src="i/registry2.h.html" width="1500" height="200"></iframe>
+	</div>
+      </div>
+
+      <div class="slide">
+	<h2><em>Some</em> C Code Required</h2>
+	<p>(no XS, though, as promised)</p>
+	<p>
+	  PipeWire uses <code>static inline</code> functions or
+	  functions implemented as preprocessor macros a <em>lot</em>.
+	</p>
+	<p>
+	  Luckily, FFI::Platypus makes adding own C code quite easy.
+	</p>
+      </div>
+
+      <div class="slide">
+	<h2>Add C Code</h2>
+	<ul>
+	  <li>
+	    Drop your C code to a sub-directory <code>./ffi</code>
+	  </li>
+	  <li>
+	    FFI::Platypus takes care for compiling, linking and
+	    explains what to add to <code>Makefile.PL</code>
+	  </li>
+	</ul>
+	<div class="centered">
+	  <iframe src="i/wrapper.c.html" width="1500" height="400"></iframe>
+	</div>
+      </div>
+
+      <div class="slide">
+	<h2>Uses for Bundled C Code</h2>
+	<ul>
+	  <li>
+	    Make static functions or macros available from Perl
+	  <iframe src="i/VERSION.c.html" width="1500" height="200"></iframe>
+	  </li>
+	  <li>
+	    Debugging / Diagnostics / Troubleshooting
+	  </li>
+	  <li>
+	    <a href="https://metacpan.org/dist/Inline-C/view/lib/Inline/C.pod">Inline::C</a>
+	    on steroids thanks to the Platypus environment
+	  </li>
+	</ul>
+      </div>
+
+      <div class="slide">
+	<h3>Tutorial 2: Enumerating Objects V</h3>
+	<p>Define the callback routine</p>
+	<div class="centered">
+	  <iframe src="i/listener.c.html" width="1500" height="150"></iframe>
+	  <iframe src="i/listener.h.html" width="1500" height="280"></iframe>
+	</div>
+      </div>
+
+      <div class="slide">
+	<h2>Complex Data Types</h2>
+	<div class="centered">
+	  <iframe src="i/struct.c.html" width="1500" height="120"></iframe>
+	  <iframe src="i/struct.pl.html" width="1500" height="200"></iframe>
+	  <iframe src="i/record.pl.html" width="1500" height="280"></iframe>
+	</div>
+      </div>
+
+      <div class="slide">
+	<h2>Issues and Limitations</h2>
+	<ul>
+	  <li>
+	    A large number of structs means: Much manual
+	    "translating" of C declarations
+	  </li>
+	  <li>
+	    Several constructs used by PipeWire can not be mapped to
+	    FFI::Platypus declarations
+	    <div class="centered">
+	      <iframe src="i/spa_dict.h.html" width="800" height="220"></iframe>
+	      <iframe src="i/spa_list.h.html" width="600" height="220"></iframe>
+	    </div>
+	  </li>
+	</ul>
+      </div>
+
+      <div class="slide">
+	<h2>Enter <a href="https://metacpan.org/pod/Convert::Binary::C">Convert::Binary::C</a><small>(CBC)</small></h2>
+	<ul>
+	  <li>CBC operates on header files (and sources), not on binaries</li>
+	  <li>Its methods <tt>pack</tt> and <tt>unpack</tt> use
+	    C <code>struct</code> names as templates</li>
+	  <li>False start: Failed to process <code>stdargs.h</code>
+	    <ul>
+	      <li>The maintainer provided a fix within
+		hours (not yet on CPAN)</li>
+	    </ul>
+	  </li>
+	  <li>Does not understand GCC extensions
+	    <ul>
+	      <li>... which PipeWire uses frequently</li>
+	      <li>CBC is "bugfix only", no enhancements planned</li>
+	    </ul>
+	  </li>
+	</ul>
+      </div>
+
+      <div class="slide">
+	<h2>CBC for Code Generation</h2>
+	<ul>
+	  <li>CBC offers insight into the parsed C constructs</li>
+	  <li>The <tt>#define</tt>d constants can be used to create
+	    <tt>use constant</tt> equivalents for ~350 values</li>
+	  <li>The <tt>struct</tt> method helps to create Perl classes
+	    equivalent to C structs
+	    <ul>
+	      <li>
+		Could also help with XS typemaps
+	      </li>
+	    </ul>
+	  </li>
+      </div>
+
+      <div class="slide">
+	<h2>An Example Class</h2>
+	<div class="centered">
+	  <iframe src="i/Buffer.pm.html" width="1500" height="700"></iframe>
+	</div>
+      </div>
+
+      <div class="slide">
+	<h2>Tutorial 4: Playing Sound</h2>
+	<p>
+	  Using what I have learned plus code generation for about a
+	  dozen classes should be easy, shouldn't it?
+	</p>
+      </div>
+
+      <div class="slide">
+	<h2>Tutorial 4: Playing Sound</h2>
+	<p>
+	  Using what I have learned plus code generation for about a
+	  dozen classes should be easy, shouldn't it?
+	</p>
+	<div class="fixme">
+	  Thread pw_data received signal SIGSEGV, Segmentation fault.
+	</div>
+	<p>
+	  This time, it is
+	  <a href="https://github.com/PerlFFI/FFI-Platypus/issues/399">not my fault.</a>
+	</p>
+	<p>It works with Perls built without threads.</p>
+      </div>
+
+      <div class="slide">
+	<h2>Portability Summary</h2>
+	<ul>
+	  <li>PipeWire works only on current "stable" Linux versions
+	    <ul>
+	      <li>So no demo with my presentation PC (Win11)</li>
+	    </ul>
+	  </li>
+	  <li>Needs a fairly recent GCC to compile
+	    <ul>
+	      <li>...with a somewhat fragile CBC configuration (356 lines)</li>
+	    </ul>
+	  </li>
+	  <li>Works only with non-threaded Perl
+	    <ul>
+	      <li>
+		No system Perl: Distributions ship threaded
+		Perl
+	      </li>
+	    </ul>
+	  </li>
+	  <li>This is very unlikely to go anywhere</li>
+	</ul>
+      </div>
+
+      <div class="slide">
+	<h2>FFI::Platypus Summary</h2>
+	<ul>
+	  <li>
+	    😀 Easy to learn (docs, lots of examples)
+	  </li>
+	  <li>
+	    😀 Easy to add own C code
+	  </li>
+	  <li>
+	    😐 Works with libraries in various languages
+	  </li>
+	  <li>
+	    🙄 Needs FFI declarations for every function call and every
+	    data type
+	  </li>
+	  <li>
+	    🙁 The libraries I tried so far use many data types not
+	    supported by FFI::Platypus
+	    <ul>
+	      <li>Workarounds are possible, but tedious</li>
+	    </ul>
+	  </li>
+	</ul>
+      </div>
+
+      <div class="slide">
+	<h2>Convert::Binary::C Summary</h2>
+	<ul>
+	  <li>
+	    😀 Is a companion to FFI::Platypus (or XS), not a replacement
+	  <li>
+	    😀 Works on C sources and header files
+	  </li>
+	  <li>
+	    😀 Allows introspection / code generation for FFI or XS wrappers
+	    <ul>
+	      <li>
+		🙄 Does not parse function signatures and function
+		pointers
+	      </li>
+	    </ul>
+	  </li>
+	  <li>
+	    🙄 Does not support GCC extensions
+	  </li>
+	  <li>
+	    🙄 Configuring can be tedious and brittle
+	  </li>
+	</ul>
+      </div>
+      <div class="slide">
+	<h2>Miscellaneous Topics</h2>
+	<ul>
+	  <li>
+	    Defining callback routines needs a workaround for
+	    FFI::Platypus' assumption that a code reference must be
+	    passed as a formal parameter
+	  </li>
+	  <li>
+	    Integrating PipeWire into another event loop (in my
+	    case: <a href="https://metacpan.org/pod/Prima">Prima</a>)
+	    is possible by adapting PipeWire's GTK example to
+	    <a href="https://metacpan.org/dist/Prima/view/pod/Prima/File.pod">Prima::File</a>
+	  </li>
+	</ul>
+      </div>
+
+      <div class="slide">
+	<h2>Obscure Objects of Desire</h2>
+	<ul>
+	  <li>
+	    The Perl source code - because the <code>class</code>
+	    feature lacks a debugger and has not yet a MOP
+	    <ul>
+	      <li>
+		Should be easier for CBC because it is more portable
+		<ul>
+		  <li>Spoiler: It is not ☹️.</li>
+		</ul>
+	      </li>
+	      <li>Should be more difficult because of inconsistent style</li>
+	    </ul>
+	  </li>
+	  <li>
+	    <a href="https://vulkan.lunarg.com/">Vulkan</a> -
+	    because OpenGL is retired and
+	    <a href="https://metacpan.org/dist/OpenGL-Modern">OpenGL::Modern</a>
+	    is disappointing (tests? examples?)
+	    <ul>
+	      <li>
+		Is currently my XS playground
+	      </li>
+	    </ul>
+	  </li>
+	</ul>
+      </div>
+      <div class="slide">
+	<h2>See Also...</h2>
+	<ul>
+	  <li>Alternatives to FFI::Platypus:
+	    <ul>
+	      <li><a href="https://metacpan.org/dist/PDL/view/lib/PDL/PP.pod">PDL::PP</a>
+		for number crunching
+	      </li>
+
+	      <li><a href="https://metacpan.org/pod/Affix">Affix</a> -
+		by the author
+		of <a href="https://metacpan.org/pod/SDL3">SDL3</a>
+	      </li>
+	      <li><a href="https://perldoc.perl.org/perlxs">perlxs</a>
+		- much closer to Perl's internals</li>
+	    </ul>
+	  </li>
+	  <li>Alternatives to Convert::Binary::C:
+	    <ul>
+	      <li><a href="https://metacpan.org/pod/C::Scan">C::Scan</a>
+		"for easily recognized constructs"</li>
+	      <li><a href="https://metacpan.org/pod/MarpaX::Languages::C::Scan">MarpaX::Languages::C::Scan</a> stopped at ISO-ANSI-C-2011</li>
+      </div>
+
+      <div class="slide centered">
+	<div id="back-matter">
+	  This talk:
+	  <a href="https://haraldjoerg.github.io/segv/">
+	    https://haraldjoerg.github.io/segv/
+	  </a>
+	  <!--
+	  <br>
+	  Repo:
+	  <a href="https://github.com/HaraldJoerg/perl-audio-aoede">
+	    https://github.com/HaraldJoerg/perl-audio-aoede
+	  </a>
+	  -->
+	</div>
+	<div style="text-align: left">
+	  <p>References</p>
+	  <ul>
+	    <li>
+	      The <a href="https://pipewire.org/">PipeWire</a> site
+	    </li>
+	    <li>
+	      Perl logo: From <a href="https://metacpan.org">MetaCPAN</a>,
+	      shared under
+	      <a href="https://creativecommons.org/licenses/by/4.0/deed.en">
+		CC-BY
+	      </a>
+	      .
+	    </li>
+	  </ul>
+	</div>
+      </div>
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <div id="footer">
+      <img src="i/perl-010-64.png"> Harald Jörg, March 2026
+    </div>
+  </body>
+</html>

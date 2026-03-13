@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>closure.pl</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .cperl-method-call {
+        /* cperl-method-call */
+        color: #000000;
+        background-color: #ffffff;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="keyword">my</span> <span class="keyword">sub</span> <span class="function-name">registry_callback</span> (<span class="variable-name">$data</span>,<span class="variable-name">$id</span>,<span class="variable-name">$permissions</span>,<span class="variable-name">$type</span>,<span class="variable-name">$version</span>,<span class="variable-name">$props</span>) {
+    ...
+}
+<span class="keyword">my</span> <span class="variable-name">$callback</span> = $ffi-&gt;<span class="cperl-method-call">closure</span>(\&amp;registry_callback);
+
+<span class="comment-delimiter"># </span><span class="comment">FFI::Platypus assumes that something like this exists:
+</span>$ffi-&gt;<span class="cperl-method-call">attach</span>(<span class="string">pw_callback</span> =&gt; [<span class="string">'(opaque uint32_t uint32_t
+                               string uint32_t opaque)-&gt;void'</span>] =&gt; <span class="string">'void'</span>);
+pw_callback($callback);
+</pre>
+  </body>
+</html>

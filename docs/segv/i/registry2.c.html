@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.57 in css mode. -->
+<html>
+  <head>
+    <title>registry.c</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #ffffff;
+	font-size: 24pt;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .comment-delimiter {
+        /* font-lock-comment-delimiter-face */
+        color: #b22222;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .variable-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="comment-delimiter">/* </span><span class="comment">core.h:</span><span class="comment-delimiter"> */</span>
+<span style="background: #ff8;"><span class="keyword">static</span></span> <span class="keyword">struct</span> <span class="type">pw_registry</span> * <span class="function-name">pw_core_get_registry</span> (<span class="keyword">struct</span> <span class="type">pw_core</span> * <span class="variable-name">core</span>,
+                                                     <span class="type">uint32_t</span> <span class="variable-name">version</span>,
+                                                     size_t user_data_size);
+<span class="comment-delimiter">/* </span><span class="comment">tutorial2.c</span><span class="comment-delimiter"> */</span>
+   registry = pw_core_get_registry(core, PW_VERSION_REGISTRY,
+                                   0 <span class="comment-delimiter">/* </span><span class="comment">user_data size</span><span class="comment-delimiter"> */</span>);
+</pre>
+  </body>
+</html>
